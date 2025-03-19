@@ -1,0 +1,27 @@
+<table border="1">
+  <thead>
+  <tr>
+    <th>Descrição</th>
+    <th>Valor Original</th>
+    <th>Moeda de Origem</th>
+    <th>Valor Convertido</th>
+    <th>Moeda Convertida</th>
+    <th>Data da Cotação</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="conv : ${conversoes}">
+    <td th:text="${conv.descricao}">Descrição</td>
+    <td th:text="${conv.valorOrigem}">Valor Original</td>
+    <td th:text="${conv.moedaOrigem}">Moeda de Origem</td>
+    <td th:text="${conv.valorConvertido}">Valor Convertido</td>
+    <td>BRL</td>
+    <td th:text="${#dates.format(conv.dataCotacao, 'dd/MM/yyyy')}">Data da Cotação</td>
+    <td>
+      <a th:href="@{/conversao/editar/{id}(id=${conv.id})}" class="btn-editar">Editar</a>
+      <a th:href="@{/conversao/deletar/{id}(id=${conv.id})}" class="btn-deletar" onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Conversão de Moeda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Conversor de Moedas</h1>
+    <form th:action="@{conversao}" method="post" th:object="${conversao}">
+
+        <label for="descricao">Descrição:</label><br>
+        <input type="text" id="descricao" th:field="*{descricao}" placeholder="Digite a descrição"><br><br>
+
+        <label for="moedaOrigem">Moeda de Origem:</label><br>
+        <select id="moedaOrigem" th:field="*{moedaOrigem}">
+            <option value="USD">USD - Dólar Americano</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="JPY">JPY - Iene Japonês</option>
+            <option value="GBP">GBP - Libra Esterlina</option>
+            <option value="AUD">AUD - Dólar Australiano</option>
+        </select><br><br>
+
+        <label for="valor">Valor:</label><br>
+        <input type="number" id="valor" th:field="*{valorOrigem}" placeholder="0,00"><br><br>
+
+        <button type="submit">Converter para BRL</button>
+    </form>
+</div>
+
+</body>
+</html>

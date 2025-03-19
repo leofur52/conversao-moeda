@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Conversão</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Editar Conversão</h1>
+
+    <form th:action="@{/conversao/atualizar}" method="post" th:object="${conversao}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>Descrição:</label><br>
+        <input type="text" th:field="*{descricao}" ><br><br>
+
+        <label>Moeda de Origem:</label><br>
+        <select id="moedaOrigem" th:field="*{moedaOrigem}">
+            <option value="USD">USD - Dólar Americano</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="JPY">JPY - Iene Japonês</option>
+            <option value="GBP">GBP - Libra Esterlina</option>
+            <option value="AUD">AUD - Dólar Australiano</option>
+        </select><br><br>
+
+        <label>Valor Original:</label><br>
+        <input type="number" id="valor" th:field="*{valorOrigem}" placeholder="0,00"><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <a href="/conversao">Voltar</a>
+</div>
+
+</body>
+</html>
