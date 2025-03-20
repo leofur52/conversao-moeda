@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
+<nav class="menu">
+    <a href="/conversao" class="menu-item">Cadastro</a>
+    <a href="/conversao/listagem" class="menu-item">Listagem</a>
+</nav>
 <div class="container">
     <h1>Editar Conversão</h1>
 
-    <form th:action="@{/conversao/atualizar}" method="post" th:object="${conversao}">
+    <form th:action="@{/conversao/editar/{id}(id=${conversao.id})}" method="post" th:object="${conversao}">
         <input type="hidden" th:field="*{id}"/>
 
         <label>Descrição:</label><br>
@@ -31,8 +34,6 @@
 
         <button type="submit">Salvar Alterações</button>
     </form>
-
-    <a href="/conversao">Voltar</a>
 </div>
 
 </body>

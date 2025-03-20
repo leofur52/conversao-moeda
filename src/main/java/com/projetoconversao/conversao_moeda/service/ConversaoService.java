@@ -1,7 +1,6 @@
 package com.projetoconversao.conversao_moeda.service;
 
 import com.projetoconversao.conversao_moeda.entidade.Conversao;
-import com.projetoconversao.conversao_moeda.entidade.CotacaoResponse;
 import com.projetoconversao.conversao_moeda.entidade.ResponseAPI;
 import com.projetoconversao.conversao_moeda.repository.ConversaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,23 +8,35 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class ConversaoService {
 
-    @Value("${fastforex.api.key}")
-    private String apiKey;
-
-    private final String URL = "https://api.fastforex.io/fetch-one?from={fromCurrency}&to=BRL&api_key={apiKey}";
-
     @Autowired
     private ConversaoRepository conversaoRepository;
 
+    @Value("${fastforex.api.key}")
+    private String apiKey;
+    private final String URL = "https://api.fastforex.io/fetch-one?from={coin}&to=BRL&api_key={apiKey}";
+
+    public ResponseAPI buscarCotacao(String moedaOrigem) {
+
+        String url = URL.replace("{coin}", moedaOrigem).replace("{apiKey}", apiKey);
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseAPI apiResponse = restTemplate.getForObject(url, ResponseAPI.class);
+        if (apiResponse != null && apiResponse.getResult() != null) {
+            return apiResponse;
+        } else {
+            throw new RuntimeException("API não retornou uma resposta válida.");
+        }
+    }
     public Double converterParaBRL(double valor, String moedaOrigem) {
 
-        CotacaoResponse cotacaoResponse = buscarCotacao(moedaOrigem);
-        Double taxaDeConversao = cotacaoResponse.getResult();
+        ResponseAPI apiResponse = buscarCotacao(moedaOrigem);
+        Double taxaDeConversao = apiResponse.getBRL();
         if (taxaDeConversao != null) {
             return valor * taxaDeConversao;
         } else {
@@ -33,20 +44,42 @@ public class ConversaoService {
         }
     }
 
-    public CotacaoResponse buscarCotacao(String moedaOrigem) {
+    public void NovaConversao(Conversao dados) {
+        double valorConvertido = converterParaBRL(dados.getValorOrigem(), dados.getMoedaOrigem());
 
-        String url = URL.replace("{fromCurrency}", moedaOrigem).replace("{apiKey}", apiKey);
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseAPI apiResponse = restTemplate.getForObject(url, ResponseAPI.class);
-        if (apiResponse != null && apiResponse.getResultado() > 0) {
-            return new CotacaoResponse(apiResponse.getResultado(), apiResponse.getData());
-        } else {
-            throw new RuntimeException("API não retornou uma resposta válida.");
-        }
+        Conversao conversao = new Conversao();
+        conversao.setDescricao(dados.getDescricao());
+        conversao.setMoedaOrigem(dados.getMoedaOrigem());
+        conversao.setValorOrigem(dados.getValorOrigem());
+        conversao.setValorConvertido(valorConvertido);
+        conversao.setDataCotacao(new Date());
 
-    }
-    public void salvarConversao(Conversao conversao) {
-        // Salva a conversão no banco de dados usando o repositório
         conversaoRepository.save(conversao);
+    }
+    public void atualizarConversao(Long id, Conversao dados) throws Exception {
+        Optional<Conversao> conversaoOptional = conversaoRepository.findById(id);
+        if (conversaoOptional.isPresent()) {
+            Conversao conversao = conversaoOptional.get();
+
+            double valorConvertido = converterParaBRL(dados.getValorOrigem(), dados.getMoedaOrigem());
+
+            conversao.setDescricao(dados.getDescricao());
+            conversao.setMoedaOrigem(dados.getMoedaOrigem());
+            conversao.setValorOrigem(dados.getValorOrigem());
+            conversao.setValorConvertido(valorConvertido);
+            conversao.setDataCotacao(new Date());
+
+            conversaoRepository.save(conversao);
+        } else {
+            throw new Exception("Conversão não encontrada!");
+        }
+    }
+    public void deletarConversao(Long id) throws Exception {
+        Optional<Conversao> conversao = conversaoRepository.findById(id);
+        if (conversao.isPresent()) {
+            conversaoRepository.deleteById(id);
+        } else {
+            throw new Exception("Conversão não encontrada para exclusão");
+        }
     }
 }

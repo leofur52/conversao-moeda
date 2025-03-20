@@ -1,27 +1,50 @@
-<table border="1">
-  <thead>
-  <tr>
-    <th>Descrição</th>
-    <th>Valor Original</th>
-    <th>Moeda de Origem</th>
-    <th>Valor Convertido</th>
-    <th>Moeda Convertida</th>
-    <th>Data da Cotação</th>
-    <th>Ações</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="conv : ${conversoes}">
-    <td th:text="${conv.descricao}">Descrição</td>
-    <td th:text="${conv.valorOrigem}">Valor Original</td>
-    <td th:text="${conv.moedaOrigem}">Moeda de Origem</td>
-    <td th:text="${conv.valorConvertido}">Valor Convertido</td>
-    <td>BRL</td>
-    <td th:text="${#dates.format(conv.dataCotacao, 'dd/MM/yyyy')}">Data da Cotação</td>
-    <td>
-      <a th:href="@{/conversao/editar/{id}(id=${conv.id})}" class="btn-editar">Editar</a>
-      <a th:href="@{/conversao/deletar/{id}(id=${conv.id})}" class="btn-deletar" onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Listagem de Conversões</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<nav class="menu">
+  <a href="/conversao" class="menu-item">Cadastro</a>
+  <a href="/conversao/listagem" class="menu-item">Listagem</a>
+</nav>
+
+<div class="container">
+  <h1>Listagem de Conversões</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Descrição</th>
+      <th>Valor Original</th>
+      <th>Moeda de Origem</th>
+      <th>Valor Convertido</th>
+      <th>Moeda Convertida</th>
+      <th>Data da Cotação</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="conv : ${conversoes}">
+      <td th:text="${conv.descricao}">Descrição</td>
+      <td th:text="${conv.valorOrigem}">Valor Original</td>
+      <td th:text="${conv.moedaOrigem}">Moeda de Origem</td>
+      <td th:text="${conv.valorConvertido}">Valor Convertido</td>
+      <td>BRL</td>
+      <td th:text="${#dates.format(conv.dataCotacao, 'dd/MM/yyyy')}">Data da Cotação</td>
+      <td>
+        <a th:href="@{/conversao/editar/{id}(id=${conv.id})}" class="btn-acao btn-editar">Editar</a>
+        <a th:href="@{/conversao/deletar/{id}(id=${conv.id})}" class="btn-acao btn-deletar"
+           onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+
+</html>

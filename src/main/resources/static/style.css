@@ -1,32 +1,66 @@
-/* Estilo geral da página */
+/* Estilo geral */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alinha ao topo da tela */
-    min-height: 100vh;
+    padding: 0;
     margin: 0;
-}
-
-.container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    max-width: 1200px;
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    justify-content: flex-start;
+    min-height: 100vh;
 }
 
-/* Estilo do formulário */
+/* Container para centralizar conteúdo */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: center; /* Centraliza o conteúdo do container */
+}
+
+/* MENU */
+.menu {
+    width: 100%;
+    background-color: #4CAF50;
+    padding: 15px 0;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.menu-item {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.menu-item:hover {
+    color: #d9ffd9;
+}
+
+/* FORMULÁRIOS */
 form {
     background-color: #fff;
-    padding: 20px;
+    padding: 40px;  /* Aumentei o padding */
     border-radius: 8px;
-    max-width: 400px;
     width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Limita a largura para um tamanho adequado */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Aumentei a sombra */
+    margin: 0 auto;
+    text-align: left; /* Alinha os campos à esquerda */
 }
 
 label {
@@ -37,36 +71,62 @@ label {
 
 input, select, button {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 14px;  /* Aumentei o padding para mais espaçamento */
+    margin-bottom: 20px;
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
 
-button {
+/* Botões padrão */
+button, .action-btn {
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    padding: 14px 24px; /* Aumentei o padding do botão */
+    font-weight: bold;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    margin: 10px 0; /* Espaço entre os botões */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave para os botões */
 }
 
-button:hover {
+button:hover, .action-btn:hover {
     background-color: #45a049;
 }
 
-/* Estilo da área de listagem de conversões */
-.conversoes {
-    background-color: #fff;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
-    width: 100%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.btn-acao {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-/* Estilo da tabela */
+.btn-editar {
+    background-color: #007bff;
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+}
+
+.btn-deletar {
+    background-color: #dc3545;
+}
+
+.btn-deletar:hover {
+    background-color: #a71d2a;
+}
+
+/* TABELAS */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -74,7 +134,7 @@ table {
 }
 
 table th, table td {
-    padding: 12px;
+    padding: 14px;
     text-align: center;
     border: 1px solid #ddd;
 }
@@ -84,57 +144,34 @@ table th {
     color: white;
 }
 
-/* Estilo dos botões de ação na listagem */
-.action-btn {
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+/* Botões de editar e excluir lado a lado */
+td a {
+    margin-right: 10px; /* Espaço entre os botões */
 }
 
-.btn-editar {
-    background-color: #2196F3;
+/* Alinhamento do menu fixo no topo */
+body {
+    padding-top: 70px; /* Ajusta o conteúdo para ficar abaixo do menu */
 }
 
-.btn-editar:hover {
-    background-color: #1976D2;
+/* Alinha o botão de editar e deletar lado a lado */
+.actions-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
-.btn-deletar {
-    background-color: #f44336;
-}
-
-.btn-deletar:hover {
-    background-color: #d32f2f;
-}
-
-/* Estilo para cada item da lista (se necessário) */
+/* Cards de conversão (se necessário) */
 .conversao {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
-    padding: 8px;
+    padding: 12px;
     background-color: #f9f9f9;
-    border-radius: 4px;
+    border-radius: 5px;
     align-items: center;
 }
 
 .conversao span {
     font-size: 14px;
-}
-
-/* Estilo para o botão de voltar */
-.btn-voltar {
-    margin-top: 20px;
-    background-color: #555;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.btn-voltar:hover {
-    background-color: #333;
 }
