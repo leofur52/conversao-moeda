@@ -23,6 +23,12 @@ public class ConversaoController {
     @GetMapping
     public String mostrarFormularioConversao(Model model) {
         model.addAttribute("conversao", new Conversao());
+        try {
+            var moedas = conversaoService.buscarMoedas();
+            model.addAttribute("moedas", moedas);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Erro ao carregar as moedas: " + e.getMessage());
+        }
         return "conversao";
     }
 
@@ -46,8 +52,15 @@ public class ConversaoController {
     @GetMapping("/editar/{id}")
     public String editarConversao(@PathVariable("id") Long id, Model model) {
         Optional<Conversao> conversaoOptional = conversaoRepository.findById(id);
+
         if (conversaoOptional.isPresent()) {
             model.addAttribute("conversao", conversaoOptional.get());
+            try {
+                var moedas = conversaoService.buscarMoedas();
+                model.addAttribute("moedas", moedas);
+            } catch (Exception e) {
+                model.addAttribute("errorMessage", "Erro ao carregar as moedas: " + e.getMessage());
+            }
             return "editar-conversao";
         } else {
             return "redirect:/conversao/listagem";

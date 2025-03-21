@@ -83,6 +83,8 @@ button, .action-btn {
     background-color: #4CAF50;
     color: white;
     border: none;
+
+
     cursor: pointer;
     padding: 14px 24px; /* Aumentei o padding do botão */
     font-weight: bold;

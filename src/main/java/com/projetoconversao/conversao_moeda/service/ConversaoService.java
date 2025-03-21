@@ -2,6 +2,7 @@ package com.projetoconversao.conversao_moeda.service;
 
 import com.projetoconversao.conversao_moeda.entidade.Conversao;
 import com.projetoconversao.conversao_moeda.entidade.ResponseAPI;
+import com.projetoconversao.conversao_moeda.entidade.RespostasMoedaDTO;
 import com.projetoconversao.conversao_moeda.repository.ConversaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,6 +45,18 @@ public class ConversaoService {
             throw new RuntimeException("Taxa de conversão não encontrada para BRL.");
         }
     }
+    public Map<String, String> buscarMoedas() {
+        String url = "https://api.fastforex.io/currencies?api_key=" + apiKey;
+
+        RestTemplate restTemplate = new RestTemplate();
+        RespostasMoedaDTO response = restTemplate.getForObject(url, RespostasMoedaDTO.class);
+        if (response != null && response.getCurrencies() != null) {
+            return response.getCurrencies();
+        } else {
+            throw new RuntimeException("Falha ao buscar as moedas na API.");
+        }
+    }
+
 
     public void NovaConversao(Conversao dados) {
         double valorConvertido = converterParaBRL(dados.getValorOrigem(), dados.getMoedaOrigem());
