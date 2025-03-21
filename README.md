@@ -1,15 +1,15 @@
-💻 Projeto Conversão de Moedas
+#💻 Projeto Conversão de Moedas
 
 Este projeto foi desenvolvido com o objetivo de demonstrar meus conhecimentos práticos em Java e Spring Boot, além de aplicar conceitos de integração com APIs externas, persistência de dados e renderização dinâmica utilizando Thymeleaf.
 
 Este sistema foi proposto para uma apresentação de entrevista, com foco em mostrar o domínio da arquitetura básica de uma aplicação web em Java.
 
-🏗️O projeto segue a arquitetura
+##🏗️O projeto segue a arquitetura
   -Controller: Camada responsável por receber as requisições, processar e devolver as respostas adequadas.
   -Entity: Entidades que representam os dados da aplicação e mapeamento com o banco de dados.
   -Service: Contém as regras de negócio, incluindo o consumo da API de cotações.
   -View: Páginas HTML renderizadas com Thymeleaf, responsáveis pela interação com o usuário.
-A aplicação também integra o consumo de uma API externa para trazer as moedas disponíveis e realizar as conversões.
+   A aplicação também integra o consumo de uma API externa para trazer as moedas disponíveis e realizar as conversões.
 
 ## Ferramentas e Tecnologias Utilizadas
 
