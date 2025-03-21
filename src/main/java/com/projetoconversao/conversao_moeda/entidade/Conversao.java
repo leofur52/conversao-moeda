@@ -16,7 +16,7 @@ public class Conversao {
     private double valorOrigem;
     private double valorConvertido;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataCotacao;
 
     public Conversao() {}

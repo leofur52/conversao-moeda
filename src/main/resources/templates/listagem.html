@@ -34,7 +34,7 @@
       <td th:text="${conv.moedaOrigem}">Moeda de Origem</td>
       <td th:text="${conv.valorConvertido}">Valor Convertido</td>
       <td>BRL</td>
-      <td th:text="${#dates.format(conv.dataCotacao, 'dd/MM/yyyy')}">Data da Cotação</td>
+      <td th:text="${#dates.format(conv.dataCotacao, 'dd/MM/yyyy')} + ' às ' + ${#dates.format(conv.dataCotacao, 'HH:mm')}">Data da Cotação</td>
       <td>
         <a th:href="@{/conversao/editar/{id}(id=${conv.id})}" class="btn-acao btn-editar">Editar</a>
         <a th:href="@{/conversao/deletar/{id}(id=${conv.id})}" class="btn-acao btn-deletar"
