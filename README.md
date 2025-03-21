@@ -1,3 +1,5 @@
+💻 Projeto Conversão de Moedas
+
 Este projeto foi desenvolvido com o objetivo de demonstrar meus conhecimentos práticos em Java e Spring Boot, além de aplicar conceitos de integração com APIs externas, persistência de dados e renderização dinâmica utilizando Thymeleaf.
 
 Este sistema foi proposto para uma apresentação de entrevista, com foco em mostrar o domínio da arquitetura básica de uma aplicação web em Java.
